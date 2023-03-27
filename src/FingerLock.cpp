@@ -3,11 +3,14 @@
 #include <WiFiUdp.h>
 #include <ESP8266WiFi.h>
 #include <WiFiManager.h>
-#include <Servo.h>
+#include <PubSubClient.h>
 #include <SoftwareSerial.h>
+#include <Servo.h>
+#include <string>
 #include "Myservo.h"
 #include "Finger.h"
 #include "ConnectWIFI.h"
+#include "Mymqtt.h"
 
 /*
 
@@ -26,9 +29,11 @@ void setup()
     initWifiManager(); // 链接wifi
     finger_init();     // 指纹模块初始化
     myServo_init();    // 舵机模块初始化
+    myMqtt_init();
 }
 
 void loop()
 {
     checkFinger();
+    client.loop();
 }
