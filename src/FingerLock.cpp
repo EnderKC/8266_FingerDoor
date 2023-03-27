@@ -1,9 +1,13 @@
 #include <Arduino.h>
 #include <Adafruit_Fingerprint.h>
+#include <WiFiUdp.h>
+#include <ESP8266WiFi.h>
+#include <WiFiManager.h>
 #include <Servo.h>
 #include <SoftwareSerial.h>
-#include "Finger.h"
 #include "Myservo.h"
+#include "Finger.h"
+#include "ConnectWIFI.h"
 
 /*
 
@@ -15,13 +19,13 @@
 
 */
 
-
 void setup()
 {
-    Serial.begin(9600);
+    Serial.begin(115200);
     delay(100);
+    initWifiManager(); // 链接wifi
     finger_init();     // 指纹模块初始化
-    myServo_init(); // 舵机模块初始化
+    myServo_init();    // 舵机模块初始化
 }
 
 void loop()
