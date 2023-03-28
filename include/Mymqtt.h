@@ -42,16 +42,22 @@ void mqttCallback(char *topic, byte *payload, unsigned int length)
     Serial.print("Message arrived in topic: ");
     Serial.println(topic);
     Serial.print("Message:");
-    // for (int i = 0; i < length; i++)
-    // {
-    //     Serial.print((char)payload[i]);
-    // }
-    char *str = (char *)payload;
-    if (strcmp(str,"open") == 0)
+    for (int i = 0; i < length; i++)
+    {
+        Serial.print((char)payload[i]);
+    }
+    // TODO: 比较字符串
+    int n = sizeof(payload);
+
+    char chars[n + 1];
+    memcpy(chars, payload, n);
+    chars[n] = '\0'; // Null-terminate the string
+    if (strcmp(chars, "open") == 0)
     {
         openDoor();
     }
-    Serial.println(str);
+    Serial.println();
+    Serial.println(chars);
     Serial.println("-----------------------");
 }
 #endif
